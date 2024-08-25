@@ -20,8 +20,8 @@ namespace Thanking.Components.UI
 	[SpyComponent]
 	public class WeaponComponent : MonoBehaviour
 	{
-		public static Dictionary<ushort, float[]> AssetBackups = new Dictionary<ushort, float[]>();
-        public static List<TracerLine> Tracers = new List<TracerLine>();
+		public static Dictionary<ushort, float[]> AssetBackups = [];
+        public static List<TracerLine> Tracers = [];
 		public static Camera MainCamera;
 		
 		public static FieldInfo AmmoInfo = typeof(UseableGun).GetField("ammo", BindingFlags.NonPublic | BindingFlags.Instance);
@@ -52,7 +52,7 @@ namespace Thanking.Components.UI
 
 			if (WeaponOptions.NoSway)
 				if (OptimizationVariables.MainPlayer != null && OptimizationVariables.MainPlayer.animator != null)
-					OptimizationVariables.MainPlayer.animator.viewSway = Vector3.zero;
+					OptimizationVariables.MainPlayer.animator.scopeSway = Vector3.zero;
 
 			if (Event.current.type != EventType.Repaint)
 				return;
@@ -116,25 +116,25 @@ namespace Thanking.Components.UI
 			
 				if (!AssetBackups.ContainsKey(PAsset.id))
 				{
-					float[] Backups = new float[7]
-					{
-						PAsset.recoilAim,
+					float[] Backups =
+					[
+						PAsset.aimingRecoilMultiplier,
 						PAsset.recoilMax_x,
 						PAsset.recoilMax_y,
 						PAsset.recoilMin_x,
 						PAsset.recoilMin_y,
 						PAsset.spreadAim,
-						PAsset.spreadHip
-					};
+						PAsset.baseSpreadAngleRadians
+					];
 				
-					Backups[6] = PAsset.spreadHip;
+					Backups[6] = PAsset.baseSpreadAngleRadians;
 
 					AssetBackups.Add(PAsset.id, Backups);
 				}
 
 				if (WeaponOptions.NoRecoil && !PlayerCoroutines.IsSpying)
 				{
-					PAsset.recoilAim = 0;
+					PAsset.aimingRecoilMultiplier = 0;
 					PAsset.recoilMax_x = 0;
 					PAsset.recoilMax_y = 0;
 					PAsset.recoilMin_x = 0;
@@ -142,7 +142,7 @@ namespace Thanking.Components.UI
 				}
 				else
 				{
-					PAsset.recoilAim = AssetBackups[PAsset.id][0];
+					PAsset.aimingRecoilMultiplier = AssetBackups[PAsset.id][0];
 					PAsset.recoilMax_x = AssetBackups[PAsset.id][1];
 					PAsset.recoilMax_y = AssetBackups[PAsset.id][2];
 					PAsset.recoilMin_x = AssetBackups[PAsset.id][3];
@@ -152,14 +152,14 @@ namespace Thanking.Components.UI
 				if (WeaponOptions.NoSpread && !PlayerCoroutines.IsSpying)
 				{
 					PAsset.spreadAim = 0;
-					PAsset.spreadHip = 0;
+					PAsset.baseSpreadAngleRadians = 0;
 
-					PlayerUI.updateCrosshair(0);
+					PlayerUI.updateScope(false);
 				}
 				else
 				{
 					PAsset.spreadAim = AssetBackups[PAsset.id][5];
-					PAsset.spreadHip = AssetBackups[PAsset.id][6];
+					PAsset.baseSpreadAngleRadians = AssetBackups[PAsset.id][6];
 
 					UpdateCrosshair.Invoke(OptimizationVariables.MainPlayer.equipment.useable, null);
 				}

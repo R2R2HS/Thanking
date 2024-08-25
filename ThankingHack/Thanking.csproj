@@ -197,9 +197,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Assembly-CSharp, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libraries\Assembly-CSharp.dll</HintPath>
+    <Reference Include="Assembly-CSharp_p">
+      <HintPath>..\Libraries\Assembly-CSharp_p.dll</HintPath>
     </Reference>
     <Reference Include="AstarPathfindingProject, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
