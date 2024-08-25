@@ -125,8 +125,7 @@ namespace Thanking.Components.UI
                 if (!visual.Enabled)
                 {
                     Highlighter highlighter = go.GetComponent<Highlighter>();
-                    if (highlighter != null && highlighter != TrajectoryComponent.Highlighted)
-                        highlighter.ConstantOffImmediate();
+                    highlighter?.ConstantOffImmediate();
 
                     continue;
                 }
