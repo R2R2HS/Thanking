@@ -17,7 +17,7 @@ namespace Thanking.Components.Basic
             
             if (MiscOptions.SpectatedPlayer != null && !PlayerCoroutines.IsSpying)
             {
-                OptimizationVariables.MainPlayer.look.isOrbiting = true;
+                OptimizationVariables.MainPlayer.look.IsControllingFreecam = true;
 
                 OptimizationVariables.MainPlayer.look.orbitPosition =
                     MiscOptions.SpectatedPlayer.transform.position -
@@ -26,7 +26,7 @@ namespace Thanking.Components.Basic
                 OptimizationVariables.MainPlayer.look.orbitPosition += new Vector3(0, 3, 0);
             }
             else
-                OptimizationVariables.MainPlayer.look.isOrbiting = MiscOptions.Freecam;
+                OptimizationVariables.MainPlayer.look.IsControllingFreecam = MiscOptions.Freecam;
         }
     }
 }
