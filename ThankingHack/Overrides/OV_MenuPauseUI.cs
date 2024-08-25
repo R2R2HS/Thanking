@@ -8,7 +8,6 @@ namespace Thanking.Overrides
 	public static class OV_MenuPauseUI
 	{
 		[Override(typeof(MenuPauseUI), "onClickedExitButton", BindingFlags.NonPublic | BindingFlags.Static)]
-		public static void OV_onClickedExitButton(SleekButton button) =>
-			Application.Quit();
+		public static void OV_onClickedExitButton(ISleekButton button) => Application.Quit();
 	}
 }
