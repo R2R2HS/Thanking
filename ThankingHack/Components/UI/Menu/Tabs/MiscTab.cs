@@ -70,11 +70,11 @@ namespace Thanking.Components.UI.Menu.Tabs
 
 				if (Provider.isConnected && OptimizationVariables.MainPlayer != null)
 				{
-					if (!OptimizationVariables.MainPlayer.look.isOrbiting)
+					if (!OptimizationVariables.MainPlayer.look.IsControllingFreecam)
 						OptimizationVariables.MainPlayer.look.orbitPosition = Vector3.zero;
 					
 					Prefab.Toggle("Freecam", ref MiscOptions.Freecam);
-					if (OptimizationVariables.MainPlayer.look.isOrbiting)
+					if (OptimizationVariables.MainPlayer.look.IsControllingFreecam)
 						if (Prefab.Button("Reset Camera", 150))
 							OptimizationVariables.MainPlayer.look.orbitPosition = Vector3.zero;
 				}
