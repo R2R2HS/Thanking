@@ -1,11 +1,10 @@
-﻿using System;
+﻿using SDG.Unturned;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using SDG.Unturned;
 using Thanking.Attributes;
-using Thanking.Components.Basic;
 using Thanking.Coroutines;
 using Thanking.Misc.Enums;
 using Thanking.Options.AimOptions;
@@ -170,19 +169,19 @@ namespace Thanking.Components.UI
 
 		public static void Reload()
 		{
-			#if DEBUG
+#if DEBUG
 			DebugUtilities.Log($"Ammo: {Ammo()}");
-			#endif
+#endif
 			
 			if (!WeaponOptions.AutoReload || Ammo() > 0) return;
 			
-			#if DEBUG
+#if DEBUG
 			DebugUtilities.Log("Ammo less than or equal to 0");
-			#endif
+#endif
 			
 			IEnumerable<InventorySearch> magazineSearch = 
 				OptimizationVariables.MainPlayer.inventory.search(EItemType.MAGAZINE,
-					((ItemGunAsset) OptimizationVariables.MainPlayer.equipment.asset).magazineCalibers)
+					((ItemGunAsset) OptimizationVariables.MainPlayer.equipment.asset).magazineCalibers, false)
 					.Where(i => i.jar.item.amount > 0);
 
 			var inventorySearches = magazineSearch.ToList();
