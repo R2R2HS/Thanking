@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using SDG.Unturned;
+using System.Collections.Generic;
 using System.Reflection;
-using SDG.Unturned;
 using Thanking.Attributes;
-using Thanking.Coroutines;
 using Thanking.Options.AimOptions;
 using Thanking.Utilities;
 using Thanking.Variables;
@@ -10,7 +9,7 @@ using UnityEngine;
 
 namespace Thanking.Overrides
 {
-    public class OV_UseableGun
+	public class OV_UseableGun
     {
         private static FieldInfo BulletsField;
         
@@ -40,7 +39,7 @@ namespace Thanking.Overrides
                 PlayerLifeUI.hitmarkers[0].hitCriticalImage.isVisible = false;
                 PlayerLifeUI.hitmarkers[0].hitEntitiyImage.isVisible = false;
             }
-
+            
             ItemGunAsset PAsset = (ItemGunAsset)OptimizationVariables.MainPlayer.equipment.asset;
             PlayerLook Look = OptimizationVariables.MainPlayer.look;
 

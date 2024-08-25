@@ -26,7 +26,7 @@ namespace Thanking.Utilities
                 Dictionary<ushort, int> skins = OptimizationVariables.MainPlayer.channel.owner.itemSkins;
                 if (skins == null) return;
 
-                ushort inventoryItemID = Provider.provider.economyService.getInventoryItemID(skin.ID);
+                ushort inventoryItemID = Provider.provider.economyService.getInventorySkinID(skin.ID);
 
                 SkinOptions.SkinConfig.WeaponSkins.Clear();
 
