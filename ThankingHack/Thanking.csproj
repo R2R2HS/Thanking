@@ -167,7 +167,6 @@
     <Compile Include="Variables\UIVariables\SectionTab.cs" />
     <Compile Include="Overrides\OV_Input.cs" />
     <Compile Include="Overrides\OV_Player.cs" />
-    <Compile Include="Overrides\OV_PlayerInteract.cs" />
     <Compile Include="Overrides\OV_PlayerPauseUI.cs" />
     <Compile Include="Overrides\OV_UseableGun.cs" />
     <Compile Include="Managers\Main\AttributeManager.cs" />

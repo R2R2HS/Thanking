@@ -449,7 +449,7 @@ namespace Thanking.Components.UI
                 else
                 {
                     Highlighter highlighter = go.GetComponent<Highlighter>();
-                    if (highlighter != null && highlighter != TrajectoryComponent.Highlighted)
+                    if (highlighter != null)
                         highlighter.ConstantOffImmediate();
                 }
 

@@ -202,9 +202,7 @@ namespace Thanking.Coroutines
 				{
 					UseableGun PGun = OptimizationVariables.MainPlayer.equipment.useable as UseableGun;
 
-					PlayerUI.updateCrosshair(PGun.isAiming
-						? WeaponComponent.AssetBackups[pAsset.id][5]
-						: WeaponComponent.AssetBackups[pAsset.id][6]);
+					PlayerUI.updateScope(PGun.isAiming);
 				}
 
 			SpyManager.DestroyComponents();
