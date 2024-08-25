@@ -344,7 +344,7 @@ namespace Thanking.Components.UI.Menu.Tabs
                 GUILayout.Space(1);
                 GUILayout.Label($"Server Name:\n{selectedDetail.ServerName}");
                 GUILayout.Space(2);
-
+                /*
                 if (!Provider.isConnected)
                 {
                     if (Prefab.Button("Connect", 100))
@@ -352,10 +352,10 @@ namespace Thanking.Components.UI.Menu.Tabs
                         MenuUI.closeAll();
                         MenuUI.closeAlert();
                         MenuPlayServerInfoUI.open(new SteamServerInfo(selectedDetail.RawDetails),
-                            String.Empty, MenuPlayServerInfoUI.EServerInfoOpenContext.CONNECT);
+                            string.Empty, MenuPlayServerInfoUI.EServerInfoOpenContext.CONNECT);
                     }
                 }
-
+                */
                 GUILayout.EndVertical();
                 GUILayout.EndHorizontal();
             });
