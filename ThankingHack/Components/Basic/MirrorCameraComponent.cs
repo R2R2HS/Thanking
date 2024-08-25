@@ -66,7 +66,6 @@ namespace Thanking.Components.Basic
                     Destroy(subCam);
                 subCam = cam_obj.AddComponent<Camera>();
                 subCam.CopyFrom(OptimizationVariables.MainCam);
-                cam_obj.AddComponent<GUILayer>();
                 cam_obj.transform.position = OptimizationVariables.MainCam.gameObject.transform.position;
                 cam_obj.transform.rotation = OptimizationVariables.MainCam.gameObject.transform.rotation;
                 cam_obj.transform.Rotate(0, 180, 0);
