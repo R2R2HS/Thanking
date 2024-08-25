@@ -1,11 +1,9 @@
-﻿using System.Collections;
+﻿using SDG.Unturned;
+using System.Collections;
 using System.IO;
-using SDG.Unturned;
-using Thanking.Components.UI;
 using Thanking.Managers.Submanagers;
 using Thanking.Options;
 using Thanking.Utilities;
-using Thanking.Variables;
 using UnityEngine;
 
 namespace Thanking.Coroutines
@@ -18,7 +16,7 @@ namespace Thanking.Coroutines
 
 		public static IEnumerator TakeScreenshot()
 		{
-			Player plr = OptimizationVariables.MainPlayer;
+			Player plr = Player.player;
 			SteamChannel channel = plr.channel;
 
 			switch (MiscOptions.AntiSpyMethod)
@@ -198,9 +196,9 @@ namespace Thanking.Coroutines
 		{	
 			SpyManager.InvokePre();
 			if (DrawUtilities.ShouldRun())
-				if (OptimizationVariables.MainPlayer.equipment.asset is ItemGunAsset pAsset)
+				if (Player.player.equipment.asset is ItemGunAsset pAsset)
 				{
-					UseableGun PGun = OptimizationVariables.MainPlayer.equipment.useable as UseableGun;
+					UseableGun PGun = Player.player.equipment.useable as UseableGun;
 
 					PlayerUI.updateScope(PGun.isAiming);
 				}

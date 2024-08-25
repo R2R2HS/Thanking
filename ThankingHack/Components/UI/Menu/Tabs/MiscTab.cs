@@ -68,15 +68,15 @@ namespace Thanking.Components.UI.Menu.Tabs
                 GUILayout.EndVertical();
 				GUILayout.BeginVertical();
 
-				if (Provider.isConnected && OptimizationVariables.MainPlayer != null)
+				if (Provider.isConnected && Player.player != null)
 				{
-					if (!OptimizationVariables.MainPlayer.look.IsControllingFreecam)
-						OptimizationVariables.MainPlayer.look.orbitPosition = Vector3.zero;
+					if (!Player.player.look.IsControllingFreecam)
+						Player.player.look.orbitPosition = Vector3.zero;
 					
 					Prefab.Toggle("Freecam", ref MiscOptions.Freecam);
-					if (OptimizationVariables.MainPlayer.look.IsControllingFreecam)
+					if (Player.player.look.IsControllingFreecam)
 						if (Prefab.Button("Reset Camera", 150))
-							OptimizationVariables.MainPlayer.look.orbitPosition = Vector3.zero;
+							Player.player.look.orbitPosition = Vector3.zero;
 				}
 				
 				Prefab.Toggle("Auto Check Movement", ref MiscOptions.AlwaysCheckMovementVerification);

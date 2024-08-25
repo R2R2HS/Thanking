@@ -51,7 +51,7 @@ namespace Thanking.Components.Basic
             GUILayout.Label("Radar");
             Vector2 realradarcenter = new Vector2((RadarOptions.vew.width) / 2, (RadarOptions.vew.height + 25) / 2);
             radarcenter = new Vector2((RadarOptions.vew.width) / 2, (RadarOptions.vew.height + 25) / 2);
-            Vector2 localpos = GameToRadarPosition(OptimizationVariables.MainPlayer.transform.position);
+            Vector2 localpos = GameToRadarPosition(Player.player.transform.position);
             if (RadarOptions.type == 2 || RadarOptions.type == 3)
             {
                 radarcenter.x -= localpos.x;
@@ -130,7 +130,7 @@ namespace Thanking.Components.Basic
             {
                 foreach (SteamPlayer player in Provider.clients)
                 {
-                    if (player?.player != OptimizationVariables.MainPlayer)
+                    if (player?.player != Player.player)
                     {
                         if (player?.player?.transform?.position == null ||
                             player?.player?.look?.aim?.eulerAngles == null)

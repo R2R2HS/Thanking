@@ -40,7 +40,7 @@ namespace Thanking.Components.UI.Menu.Tabs
                 {
 					Player player = Provider.clients[i].player;
                     
-                    if (player == OptimizationVariables.MainPlayer || player == null || (SearchString != "" && player.name.IndexOf(SearchString, StringComparison.OrdinalIgnoreCase) == -1))
+                    if (player == Player.player || player == null || (SearchString != "" && player.name.IndexOf(SearchString, StringComparison.OrdinalIgnoreCase) == -1))
                         continue;
 
                     bool Friend = FriendUtilities.IsFriendly(player);
@@ -97,7 +97,7 @@ namespace Thanking.Components.UI.Menu.Tabs
 
                 if (MiscOptions.NoMovementVerification)
                     if (Prefab.Button("Teleport to player", 150))
-                        OptimizationVariables.MainPlayer.transform.position = SelectedPlayer.transform.position;
+                        Player.player.transform.position = SelectedPlayer.transform.position;
 
                 GUILayout.EndVertical();
                 GUILayout.EndHorizontal();

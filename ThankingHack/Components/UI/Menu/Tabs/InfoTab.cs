@@ -22,9 +22,9 @@ namespace Thanking.Components.UI.Menu.Tabs
 					GUILayout.Space(2);
 					GUILayout.TextField($"{Provider.server}", Prefab._TextStyle);
                     GUILayout.Space(2);
-                    GUILayout.TextField($"Pitch: {OptimizationVariables.MainPlayer.look.pitch}", Prefab._TextStyle);
+                    GUILayout.TextField($"Pitch: {Player.player.look.pitch}", Prefab._TextStyle);
                     GUILayout.Space(2);
-                    GUILayout.TextField($"Yaw: {OptimizationVariables.MainPlayer.look.yaw}", Prefab._TextStyle);
+                    GUILayout.TextField($"Yaw: {Player.player.look.yaw}", Prefab._TextStyle);
                     GUILayout.Space(8);
 				}
 

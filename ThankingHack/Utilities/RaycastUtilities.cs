@@ -61,11 +61,11 @@ namespace Thanking.Utilities
 
         public static bool GenerateRaycast(out RaycastInfo info)
         {
-            ItemGunAsset currentGun = OptimizationVariables.MainPlayer.equipment.asset as ItemGunAsset;
+            ItemGunAsset currentGun = Player.player.equipment.asset as ItemGunAsset;
             
             float Range = currentGun?.range ?? 15.5f;
 
-            info = GenerateOriginalRaycast(new Ray(OptimizationVariables.MainPlayer.look.aim.position, OptimizationVariables.MainPlayer.look.aim.forward), Range,
+            info = GenerateOriginalRaycast(new Ray(Player.player.look.aim.position, Player.player.look.aim.forward), Range,
                 RayMasks.DAMAGE_CLIENT);
             
             if (RaycastOptions.EnablePlayerSelection && TargetedPlayer != null)
@@ -73,7 +73,7 @@ namespace Thanking.Utilities
                 GameObject p = TargetedPlayer.gameObject;
                 bool shouldFire = true;
 
-                Vector3 aimPos = OptimizationVariables.MainPlayer.look.aim.position;
+                Vector3 aimPos = Player.player.look.aim.position;
 
                 if (Vector3.Distance(aimPos, p.transform.position) > Range)
                     shouldFire = false;
@@ -116,7 +116,7 @@ namespace Thanking.Utilities
             return new RaycastInfo(Object.transform)
             {
                 point = Point,
-                direction = RaycastOptions.UseModifiedVector ? RaycastOptions.TargetRagdoll.ToVector() : OptimizationVariables.MainPlayer.look.aim.forward,
+                direction = RaycastOptions.UseModifiedVector ? RaycastOptions.TargetRagdoll.ToVector() : Player.player.look.aim.forward,
                 limb = Limb,
                 material = mat,
                 player = Object.GetComponent<Player>(),
@@ -133,8 +133,8 @@ namespace Thanking.Utilities
             Object = null;
             Point = Vector3.zero;
 
-            Vector3 AimPos = OptimizationVariables.MainPlayer.look.aim.position;
-            Vector3 AimForward = OptimizationVariables.MainPlayer.look.aim.forward;
+            Vector3 AimPos = Player.player.look.aim.position;
+            Vector3 AimForward = Player.player.look.aim.forward;
             
             foreach (GameObject go in Objects)
             {

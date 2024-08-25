@@ -1,4 +1,5 @@
-﻿using Thanking.Attributes;
+﻿using SDG.Unturned;
+using Thanking.Attributes;
 using Thanking.Components.UI.Menu;
 using Thanking.Options.VisualOptions;
 using Thanking.Variables;
@@ -65,11 +66,11 @@ namespace Thanking.Components.Basic
                 if (subCam != null)
                     Destroy(subCam);
                 subCam = cam_obj.AddComponent<Camera>();
-                subCam.CopyFrom(OptimizationVariables.MainCam);
-                cam_obj.transform.position = OptimizationVariables.MainCam.gameObject.transform.position;
-                cam_obj.transform.rotation = OptimizationVariables.MainCam.gameObject.transform.rotation;
+                subCam.CopyFrom(MainCamera.instance);
+                cam_obj.transform.position = MainCamera.instance.gameObject.transform.position;
+                cam_obj.transform.rotation = MainCamera.instance.gameObject.transform.rotation;
                 cam_obj.transform.Rotate(0, 180, 0);
-                subCam.transform.SetParent(OptimizationVariables.MainCam.transform, true);
+                subCam.transform.SetParent(MainCamera.instance.transform, true);
                 subCam.enabled = true;
                 subCam.rect = new Rect(0.6f, 0.6f, 0.4f, 0.4f);
                 subCam.depth = 99;
@@ -97,10 +98,10 @@ namespace Thanking.Components.Basic
         {
             if (cam_obj != null && subCam != null)
             {
-                cam_obj.transform.position = OptimizationVariables.MainCam.gameObject.transform.position;
-                cam_obj.transform.rotation = OptimizationVariables.MainCam.gameObject.transform.rotation;
+                cam_obj.transform.position = MainCamera.instance.gameObject.transform.position;
+                cam_obj.transform.rotation = MainCamera.instance.gameObject.transform.rotation;
                 cam_obj.transform.Rotate(0, 180, 0);
-                subCam.transform.SetParent(OptimizationVariables.MainCam.transform, true);
+                subCam.transform.SetParent(MainCamera.instance.transform, true);
                 subCam.depth = 99;
                 subCam.enabled = true;
             }

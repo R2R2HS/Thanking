@@ -24,14 +24,14 @@ namespace Thanking.Coroutines
 
         public static float Pitch
         {
-            get => OptimizationVariables.MainPlayer.look.pitch;
-            set => PitchInfo.SetValue(OptimizationVariables.MainPlayer.look, value);
+            get => Player.player.look.pitch;
+            set => PitchInfo.SetValue(Player.player.look, value);
         }
 
         public static float Yaw
         {
-            get => OptimizationVariables.MainPlayer.look.yaw;
-            set => YawInfo.SetValue(OptimizationVariables.MainPlayer.look, value);
+            get => Player.player.look.yaw;
+            set => YawInfo.SetValue(Player.player.look, value);
         }
 
         [Initializer]
@@ -49,7 +49,7 @@ namespace Thanking.Coroutines
             
             while (true)
             {
-                if (!DrawUtilities.ShouldRun() || !AimbotOptions.Enabled || OptimizationVariables.MainPlayer?.look?.aim == null)
+                if (!DrawUtilities.ShouldRun() || !AimbotOptions.Enabled || Player.player?.look?.aim == null)
                 {
                     yield return new WaitForSeconds(.1f);
                     continue;
@@ -57,8 +57,8 @@ namespace Thanking.Coroutines
                 
                 Player newTarget = null;
                 
-                Vector3 aimPos = OptimizationVariables.MainPlayer.look.aim.position;
-                Vector3 aimForward = OptimizationVariables.MainPlayer.look.aim.forward;
+                Vector3 aimPos = Player.player.look.aim.position;
+                Vector3 aimForward = Player.player.look.aim.forward;
 
                 var players = Provider.clients;
 
@@ -71,11 +71,11 @@ namespace Thanking.Coroutines
 
                     var enemyPosition = GetAimPosition(cPlayer.player.transform, "Skull");
 
-                    if (cPlayer.player == OptimizationVariables.MainPlayer || cPlayer.player.life == null ||
+                    if (cPlayer.player == Player.player || cPlayer.player.life == null ||
                         cPlayer.player.life.isDead || FriendUtilities.IsFriendly(cPlayer.player) || VectorUtilities.GetDistance(enemyPosition) > AimbotOptions.Distance)
                         continue;
 
-                    if (AimbotOptions.UseGunDistance && OptimizationVariables.MainPlayer?.equipment?.asset is ItemGunAsset gun && VectorUtilities.GetDistance(aimPos) > gun.range)
+                    if (AimbotOptions.UseGunDistance && Player.player?.equipment?.asset is ItemGunAsset gun && VectorUtilities.GetDistance(aimPos) > gun.range)
                         continue;
 
                     if (!AimbotOptions.AimThroughWalls && Physics.Linecast(aimPos, enemyPosition, RayMasks.DAMAGE_SERVER))
@@ -138,7 +138,7 @@ namespace Thanking.Coroutines
 
                 if (LockedObject != null &&
                     !AimbotOptions.AimThroughWalls &&
-                    Physics.Linecast(OptimizationVariables.MainPlayer.look.aim.position, GetAimPosition(LockedObject?.transform, "Skull"), RayMasks.DAMAGE_SERVER))
+                    Physics.Linecast(Player.player.look.aim.position, GetAimPosition(LockedObject?.transform, "Skull"), RayMasks.DAMAGE_SERVER))
                     LockedObject = null;
                 
                 if (LockedObject?.transform != null && ESPComponent.MainCamera != null)
@@ -170,14 +170,14 @@ namespace Thanking.Coroutines
 
         public static void Aim(GameObject obj)
         {
-            Camera mainCam = OptimizationVariables.MainCam;
+            Camera mainCam = MainCamera.instance;
             Vector3 skullPosition = GetAimPosition(obj.transform, "Skull");
             
             if (skullPosition == PiVector)
                 return;
             
-            OptimizationVariables.MainPlayer.transform.LookAt(skullPosition);
-            OptimizationVariables.MainPlayer.transform.eulerAngles = new Vector3(0f, OptimizationVariables.MainPlayer.transform.rotation.eulerAngles.y, 0f);
+            Player.player.transform.LookAt(skullPosition);
+            Player.player.transform.eulerAngles = new Vector3(0f, Player.player.transform.rotation.eulerAngles.y, 0f);
             mainCam.transform.LookAt(skullPosition);
             float num4 = mainCam.transform.localRotation.eulerAngles.x;
 
@@ -187,19 +187,19 @@ namespace Thanking.Coroutines
                 num4 = mainCam.transform.localRotation.eulerAngles.x - 270f;
 
             Pitch = num4;
-            Yaw = OptimizationVariables.MainPlayer.transform.rotation.eulerAngles.y;
+            Yaw = Player.player.transform.rotation.eulerAngles.y;
         }
 
         public static void SmoothAim(GameObject obj)
         {
-            Camera mainCam = OptimizationVariables.MainCam;
+            Camera mainCam = MainCamera.instance;
             Vector3 skullPosition = GetAimPosition(obj.transform, "Skull");
             
             if (skullPosition == PiVector)
                 return;
             
-            OptimizationVariables.MainPlayer.transform.rotation = Quaternion.Slerp(OptimizationVariables.MainPlayer.transform.rotation, Quaternion.LookRotation( skullPosition - OptimizationVariables.MainPlayer.transform.position ), Time.deltaTime * AimbotOptions.AimSpeed);
-            OptimizationVariables.MainPlayer.transform.eulerAngles = new Vector3(0f, OptimizationVariables.MainPlayer.transform.rotation.eulerAngles.y, 0f);
+            Player.player.transform.rotation = Quaternion.Slerp(Player.player.transform.rotation, Quaternion.LookRotation( skullPosition - Player.player.transform.position ), Time.deltaTime * AimbotOptions.AimSpeed);
+            Player.player.transform.eulerAngles = new Vector3(0f, Player.player.transform.rotation.eulerAngles.y, 0f);
             mainCam.transform.localRotation = Quaternion.Slerp(mainCam.transform.localRotation, Quaternion.LookRotation(skullPosition - mainCam.transform.position), Time.deltaTime * AimbotOptions.AimSpeed);
             float num4 = mainCam.transform.localRotation.eulerAngles.x;
 
@@ -209,7 +209,7 @@ namespace Thanking.Coroutines
                 num4 = mainCam.transform.localRotation.eulerAngles.x - 270f;
 
             Pitch = num4;
-            Yaw = OptimizationVariables.MainPlayer.transform.rotation.eulerAngles.y;
+            Yaw = Player.player.transform.rotation.eulerAngles.y;
         }
 
         private static Vector2 CalcAngle(GameObject obj)

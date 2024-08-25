@@ -22,7 +22,7 @@ namespace Thanking.Utilities
 
 			if (VectorUtilities.GetDistance(Target.transform.position, StartPos) <= 15.5f)
 			{
-				Point = OptimizationVariables.MainPlayer.transform.position;
+				Point = Player.player.transform.position;
 				return true;
 			}
 

@@ -28,7 +28,7 @@ namespace Thanking.Utilities
         }
 
         public static void DisplayNotification(EPlayerMessage type, string message, Color color, float displayTime) => 
-            OptimizationVariables.MainPlayer.StartCoroutine(DisplayNotificationCoroutine(type, message, color, displayTime));
+            Player.player.StartCoroutine(DisplayNotificationCoroutine(type, message, color, displayTime));
 
         private static IEnumerator DisplayNotificationCoroutine(EPlayerMessage type, string message, Color color, float displayTime)
         {

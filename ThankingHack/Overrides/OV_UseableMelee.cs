@@ -25,7 +25,7 @@ namespace Thanking.Overrides
             else if (MiscOptions.ExtendMeleeRange)
                 OV_DamageTool.OVType = OverrideType.Extended;
 
-            OverrideUtilities.CallOriginal(OptimizationVariables.MainPlayer.equipment.useable);
+            OverrideUtilities.CallOriginal(Player.player.equipment.useable);
 
             OV_DamageTool.OVType = OverrideType.None;
         }

@@ -76,7 +76,7 @@ namespace Thanking.Components.Basic
                 if (subCam != null)
                     Destroy(subCam);
                 subCam = cam_obj.AddComponent<Camera>();
-                subCam.CopyFrom(OptimizationVariables.MainCam);
+                subCam.CopyFrom(MainCamera.instance);
                 subCam.enabled = true;
                 subCam.rect = new Rect(0.6f, 0.6f, 0.6f, 0.4f);
                 subCam.depth = 98;

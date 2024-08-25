@@ -1,4 +1,5 @@
-﻿using Thanking.Attributes;
+﻿using SDG.Unturned;
+using Thanking.Attributes;
 using Thanking.Coroutines;
 using Thanking.Options;
 using Thanking.Utilities;
@@ -17,16 +18,16 @@ namespace Thanking.Components.Basic
             
             if (MiscOptions.SpectatedPlayer != null && !PlayerCoroutines.IsSpying)
             {
-                OptimizationVariables.MainPlayer.look.IsControllingFreecam = true;
+                Player.player.look.IsControllingFreecam = true;
 
-                OptimizationVariables.MainPlayer.look.orbitPosition =
+                Player.player.look.orbitPosition =
                     MiscOptions.SpectatedPlayer.transform.position -
-                    OptimizationVariables.MainPlayer.transform.position;
+                    Player.player.transform.position;
                 
-                OptimizationVariables.MainPlayer.look.orbitPosition += new Vector3(0, 3, 0);
+                Player.player.look.orbitPosition += new Vector3(0, 3, 0);
             }
             else
-                OptimizationVariables.MainPlayer.look.IsControllingFreecam = MiscOptions.Freecam;
+                Player.player.look.IsControllingFreecam = MiscOptions.Freecam;
         }
     }
 }

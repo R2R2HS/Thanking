@@ -11,7 +11,7 @@ namespace Thanking.Utilities
 	{
 		public static bool ShouldRun() =>
 			!(!Provider.isConnected || Provider.isLoading || LoadingUI.isBlocked ||
-			  OptimizationVariables.MainPlayer == null);
+			  Player.player == null);
 
 		public static int GetTextSize(ESPVisual vis, double dist)
 		{

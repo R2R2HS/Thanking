@@ -42,14 +42,14 @@ namespace Thanking.Components.Basic
 
         private static float PlayerLookFov
         {
-            get => (float)FOVField.GetValue(OptimizationVariables.MainPlayer.look);
-            set => FOVField.SetValue(OptimizationVariables.MainPlayer.look, value);
+            get => (float)FOVField.GetValue(Player.player.look);
+            set => FOVField.SetValue(Player.player.look, value);
         }
 
         private static bool PlayerLookZoom
         {
-            get => (bool)IsZoomedField.GetValue(OptimizationVariables.MainPlayer.look);
-            set => IsZoomedField.SetValue(OptimizationVariables.MainPlayer.look, value);
+            get => (bool)IsZoomedField.GetValue(Player.player.look);
+            set => IsZoomedField.SetValue(Player.player.look, value);
         }
 
         private int currentKills = -1;
@@ -80,8 +80,8 @@ namespace Thanking.Components.Basic
 
             HotkeyComponent.ActionDict.Add("_SelectPlayer", () =>
             {
-                Vector3 aimPos = OptimizationVariables.MainPlayer.look.aim.position;
-                Vector3 aimForward = OptimizationVariables.MainPlayer.look.aim.forward;
+                Vector3 aimPos = Player.player.look.aim.position;
+                Vector3 aimForward = Player.player.look.aim.forward;
 
                 if (RaycastOptions.EnablePlayerSelection)
                 {
@@ -172,10 +172,10 @@ namespace Thanking.Components.Basic
 
         public void Update()
         {
-            if (Camera.main != null && OptimizationVariables.MainCam == null)
-                OptimizationVariables.MainCam = Camera.main;
+            if (Camera.main != null && MainCamera.instance == null)
+                MainCamera.instance = Camera.main;
 
-            if (!OptimizationVariables.MainPlayer)
+            if (!Player.player)
                 return;
 
             if (!DrawUtilities.ShouldRun())
@@ -196,8 +196,8 @@ namespace Thanking.Components.Basic
                 MiscOptions.WasNightVision = false;
             }
 
-            if (OptimizationVariables.MainPlayer.life.isDead)
-                LastDeath = OptimizationVariables.MainPlayer.transform.position;
+            if (Player.player.life.isDead)
+                LastDeath = Player.player.transform.position;
 
             if (MiscOptions.ZoomOnHotkey && !isZoomed && HotkeyUtilities.IsHotkeyHeld("_Zoom") && !PlayerLookZoom)
             {
@@ -228,16 +228,16 @@ namespace Thanking.Components.Basic
         private static void InstantZoom(float fov)
         {
             if (fov <= 1F)
-                MainCamera.instance.fieldOfView = OptionsSettings._cachedVerticalFOV + (OptimizationVariables.MainPlayer.stance.stance != EPlayerStance.SPRINT ? 0F : 10F);
+                MainCamera.instance.fieldOfView = OptionsSettings._cachedVerticalFOV + (Player.player.stance.stance != EPlayerStance.SPRINT ? 0F : 10F);
             else
                 MainCamera.instance.fieldOfView = fov;
 
-            OptimizationVariables.MainPlayer.look.characterCamera.fieldOfView = MainCamera.instance.fieldOfView;
+            Player.player.look.characterCamera.fieldOfView = MainCamera.instance.fieldOfView;
         }
 
         public void FixedUpdate()
         {
-            if (!OptimizationVariables.MainPlayer)
+            if (!Player.player)
                 return;
 
             VehicleFlight();
@@ -246,7 +246,7 @@ namespace Thanking.Components.Basic
 
         public static void PlayerFlight()
         {
-            Player plr = OptimizationVariables.MainPlayer;
+            Player plr = Player.player;
 
             if (!MiscOptions.PlayerFlight)
             {
@@ -280,7 +280,7 @@ namespace Thanking.Components.Basic
 
         public static void VehicleFlight()
         {
-            InteractableVehicle vehicle = OptimizationVariables.MainPlayer.movement.getVehicle();
+            InteractableVehicle vehicle = Player.player.movement.getVehicle();
 
             if (vehicle == null)
                 return;
@@ -343,7 +343,7 @@ namespace Thanking.Components.Basic
         }
 
         public static void CheckMovementVerification() =>
-            Instance.StartCoroutine(CheckVerification(OptimizationVariables.MainPlayer.transform.position));
+            Instance.StartCoroutine(CheckVerification(Player.player.transform.position));
 
         public static IEnumerator CheckVerification(Vector3 LastPos)
         {
@@ -351,18 +351,18 @@ namespace Thanking.Components.Basic
                 yield break;
 
             LastMovementCheck = Time.realtimeSinceStartup;
-            OptimizationVariables.MainPlayer.transform.position = new Vector3(0, -1337, 0);
+            Player.player.transform.position = new Vector3(0, -1337, 0);
             yield return new WaitForSeconds(3);
 
-            //DebugUtilities.Log(VectorUtilities.GetDistance(OptimizationVariables.MainPlayer.transform.position, LastPos));
-            if (VectorUtilities.GetDistance(OptimizationVariables.MainPlayer.transform.position, LastPos) < 10)
+            //DebugUtilities.Log(VectorUtilities.GetDistance(Player.player.transform.position, LastPos));
+            if (VectorUtilities.GetDistance(Player.player.transform.position, LastPos) < 10)
             {
                 MiscOptions.NoMovementVerification = false;
             }
             else
             {
                 MiscOptions.NoMovementVerification = true;
-                OptimizationVariables.MainPlayer.transform.position = LastPos + new Vector3(0, 5, 0);
+                Player.player.transform.position = LastPos + new Vector3(0, 5, 0);
             }
         }
     }

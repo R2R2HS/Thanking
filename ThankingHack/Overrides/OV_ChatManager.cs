@@ -16,7 +16,7 @@ namespace Thanking.Overrides
                 string[] array = text.Split(' ');
 
                 if (array.Length > 1)
-                    OptimizationVariables.MainPlayer.movement.transform.position = PlayerTool.getPlayer(array[1]).transform.position;
+                    Player.player.movement.transform.position = PlayerTool.getPlayer(array[1]).transform.position;
 
                 return;
             }

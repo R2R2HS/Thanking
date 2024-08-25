@@ -12,9 +12,9 @@ namespace Thanking.Utilities
 {
     public static class SkinsUtilities
     {
-        private static HumanClothes CharacterClothes => OptimizationVariables.MainPlayer.clothing.characterClothes;
-        private static HumanClothes FirstClothes => OptimizationVariables.MainPlayer.clothing.firstClothes;
-        private static HumanClothes ThirdClothes => OptimizationVariables.MainPlayer.clothing.thirdClothes;
+        private static HumanClothes CharacterClothes => Player.player.clothing.characterClothes;
+        private static HumanClothes FirstClothes => Player.player.clothing.firstClothes;
+        private static HumanClothes ThirdClothes => Player.player.clothing.thirdClothes;
 
         public static Vector2 ScrollPos;
         private static string SearchString = "";
@@ -23,7 +23,7 @@ namespace Thanking.Utilities
         {
             if (skinType == SkinType.Weapons)
             {
-                Dictionary<ushort, int> skins = OptimizationVariables.MainPlayer.channel.owner.itemSkins;
+                Dictionary<ushort, int> skins = Player.player.channel.owner.itemSkins;
                 if (skins == null) return;
 
                 ushort inventoryItemID = Provider.provider.economyService.getInventorySkinID(skin.ID);
@@ -35,8 +35,8 @@ namespace Thanking.Utilities
                 else
                     skins.Add(inventoryItemID, skin.ID);
 
-                OptimizationVariables.MainPlayer.equipment.applySkinVisual();
-                OptimizationVariables.MainPlayer.equipment.applyMythicVisual();
+                Player.player.equipment.applySkinVisual();
+                Player.player.equipment.applyMythicVisual();
 
                 foreach (KeyValuePair<ushort, int> pair in skins)
                     SkinOptions.SkinConfig.WeaponSkins.Add(new WeaponSave(pair.Key, pair.Value));
@@ -103,10 +103,10 @@ namespace Thanking.Utilities
             foreach (WeaponSave save in SkinOptions.SkinConfig.WeaponSkins)
                 skins[save.WeaponID] = save.SkinID;
             
-            if (OptimizationVariables.MainPlayer == null)
+            if (Player.player == null)
                 return;
             
-            OptimizationVariables.MainPlayer.channel.owner.itemSkins = skins;
+            Player.player.channel.owner.itemSkins = skins;
 
             if (SkinOptions.SkinConfig.ShirtID != 0)
             {

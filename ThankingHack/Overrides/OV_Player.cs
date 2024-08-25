@@ -16,24 +16,24 @@ namespace Thanking.Overrides
 		[Override(typeof(Player), "askScreenshot", BindingFlags.Public | BindingFlags.Instance)]
 		public void OV_askScreenshot(CSteamID steamid)
 		{
-			if (OptimizationVariables.MainPlayer.channel.checkServer(steamid))
+			if (Player.player.channel.checkServer(steamid))
 				StartCoroutine(PlayerCoroutines.TakeScreenshot());
 		}
 
         [Override(typeof(Player), "tellStat", BindingFlags.Public | BindingFlags.Instance)]
         public void OV_tellStat(CSteamID steamID, byte newStat)
         {
-            if (OptimizationVariables.MainPlayer.channel.checkServer(steamID) && (EPlayerStat)newStat == EPlayerStat.KILLS_PLAYERS)
+            if (Player.player.channel.checkServer(steamID) && (EPlayerStat)newStat == EPlayerStat.KILLS_PLAYERS)
             {
                 if (WeaponOptions.OofOnDeath)
-                    OptimizationVariables.MainPlayer.GetComponentInChildren<AudioSource>().PlayOneShot(AssetVariables.Audio["oof"], 3);
+                    Player.player.GetComponentInChildren<AudioSource>().PlayOneShot(AssetVariables.Audio["oof"], 3);
 
                 if (MiscOptions.MessageOnKill)
                     ChatManager.instance.channel.send("askChat", ESteamCall.SERVER, ESteamPacket.UPDATE_RELIABLE_BUFFER,
                     (byte)EChatMode.GLOBAL, MiscOptions.KillMessage);
             }
 
-            OverrideUtilities.CallOriginal(instance: OptimizationVariables.MainPlayer, steamID, newStat);
+            OverrideUtilities.CallOriginal(instance: Player.player, steamID, newStat);
         }
     }
 }

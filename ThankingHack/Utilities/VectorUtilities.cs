@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SDG.Unturned;
+using System;
 using Thanking.Variables;
 using UnityEngine;
 
@@ -7,7 +8,7 @@ namespace Thanking.Utilities
     public static class VectorUtilities
     {
         public static double GetDistance(Vector3 point) =>
-            Vector3.Distance(OptimizationVariables.MainPlayer.look.aim.position, point);
+            Vector3.Distance(Player.player.look.aim.position, point);
         
         public static double GetDistance(Vector3 start, Vector3 point)
         {

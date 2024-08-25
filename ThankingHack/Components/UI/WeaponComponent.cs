@@ -28,7 +28,7 @@ namespace Thanking.Components.UI
 		public static MethodInfo UpdateCrosshair  = typeof(UseableGun).GetMethod("updateCrosshair", BindingFlags.NonPublic | BindingFlags.Instance);
 
 		public static byte Ammo() => 
-			(byte)AmmoInfo.GetValue(OptimizationVariables.MainPlayer.equipment.useable);
+			(byte)AmmoInfo.GetValue(Player.player.equipment.useable);
 
 		[Initializer]
 		public static void Initialize()
@@ -50,8 +50,8 @@ namespace Thanking.Components.UI
 				MainCamera = Camera.main;
 
 			if (WeaponOptions.NoSway)
-				if (OptimizationVariables.MainPlayer != null && OptimizationVariables.MainPlayer.animator != null)
-					OptimizationVariables.MainPlayer.animator.scopeSway = Vector3.zero;
+				if (Player.player != null && Player.player.animator != null)
+					Player.player.animator.scopeSway = Vector3.zero;
 
 			if (Event.current.type != EventType.Repaint)
 				return;
@@ -90,11 +90,11 @@ namespace Thanking.Components.UI
 			}
 			if (WeaponOptions.ShowWeaponInfo)
 			{
-				if (!(OptimizationVariables.MainPlayer.equipment.asset is ItemGunAsset))
+				if (!(Player.player.equipment.asset is ItemGunAsset))
 					return;	
 
 				GUI.depth = 0;
-				ItemGunAsset PAsset = (ItemGunAsset) OptimizationVariables.MainPlayer.equipment.asset;
+				ItemGunAsset PAsset = (ItemGunAsset) Player.player.equipment.asset;
 				string text = $"<size=15>{PAsset.itemName}\nRange: {PAsset.range}</size>";
 
 				DrawUtilities.DrawLabel(ESPComponent.ESPFont, LabelLocation.MiddleLeft,
@@ -110,7 +110,7 @@ namespace Thanking.Components.UI
 				if (!DrawUtilities.ShouldRun())
 					continue;
 
-				if (!(OptimizationVariables.MainPlayer.equipment.asset is ItemGunAsset PAsset))
+				if (!(Player.player.equipment.asset is ItemGunAsset PAsset))
 					continue;
 			
 				if (!AssetBackups.ContainsKey(PAsset.id))
@@ -160,7 +160,7 @@ namespace Thanking.Components.UI
 					PAsset.spreadAim = AssetBackups[PAsset.id][5];
 					PAsset.baseSpreadAngleRadians = AssetBackups[PAsset.id][6];
 
-					UpdateCrosshair.Invoke(OptimizationVariables.MainPlayer.equipment.useable, null);
+					UpdateCrosshair.Invoke(Player.player.equipment.useable, null);
 				}
 			
 				Reload();
@@ -180,8 +180,8 @@ namespace Thanking.Components.UI
 #endif
 			
 			IEnumerable<InventorySearch> magazineSearch = 
-				OptimizationVariables.MainPlayer.inventory.search(EItemType.MAGAZINE,
-					((ItemGunAsset) OptimizationVariables.MainPlayer.equipment.asset).magazineCalibers, false)
+				Player.player.inventory.search(EItemType.MAGAZINE,
+					((ItemGunAsset) Player.player.equipment.asset).magazineCalibers, false)
 					.Where(i => i.jar.item.amount > 0);
 
 			var inventorySearches = magazineSearch.ToList();
@@ -196,7 +196,7 @@ namespace Thanking.Components.UI
 			DebugUtilities.Log("Magazine reloaded");
 				#endif
 
-			OptimizationVariables.MainPlayer.channel.send("askAttachMagazine", ESteamCall.SERVER,
+			Player.player.channel.send("askAttachMagazine", ESteamCall.SERVER,
 				ESteamPacket.UPDATE_UNRELIABLE_BUFFER, search.page, search.jar.x,
 				search.jar.y);
 		}

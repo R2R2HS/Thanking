@@ -23,7 +23,7 @@ namespace Thanking.Coroutines
                     continue;
                 }
                 
-                Collider[] array = Physics.OverlapSphere(OptimizationVariables.MainPlayer.transform.position, 19f, RayMasks.ITEM);
+                Collider[] array = Physics.OverlapSphere(Player.player.transform.position, 19f, RayMasks.ITEM);
 
                 for (int i = 0; i < array.Length; i++)
                 {

@@ -86,7 +86,7 @@ namespace Thanking.Components.UI
         {
             CoroutineComponent.ESPCoroutine = StartCoroutine(ESPCoroutines.UpdateObjectList());
             CoroutineComponent.ChamsCoroutine = StartCoroutine(ESPCoroutines.DoChams());
-            MainCamera = OptimizationVariables.MainCam;
+            MainCamera = SDG.Unturned.MainCamera.instance;
         }
 
         public void Update()
@@ -108,12 +108,12 @@ namespace Thanking.Components.UI
             GUI.depth = 1;
 
             if (MainCamera == null)
-                MainCamera = OptimizationVariables.MainCam;
+                MainCamera = SDG.Unturned.MainCamera.instance;
 
-            Vector3 localPos = OptimizationVariables.MainPlayer.transform.position;
+            Vector3 localPos = Player.player.transform.position;
 
-            Vector3 aimPos = OptimizationVariables.MainPlayer.look.aim.position;
-            Vector3 aimForward = OptimizationVariables.MainPlayer.look.aim.forward;
+            Vector3 aimPos = Player.player.look.aim.position;
+            Vector3 aimForward = Player.player.look.aim.forward;
 
             for (int i = 0; i < ESPVariables.Objects.Count; i++)
             {

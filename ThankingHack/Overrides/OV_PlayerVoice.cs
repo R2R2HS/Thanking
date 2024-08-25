@@ -17,8 +17,8 @@ namespace Thanking.Overrides
         private static PropertyInfo propInputWantsToRecord = typeof(PlayerVoice).GetProperty("inputWantsToRecord", BindingFlags.NonPublic | BindingFlags.Instance);
         private static bool InputWantsToRecord
         {
-            get => (bool)propInputWantsToRecord.GetValue(OptimizationVariables.MainPlayer.voice);
-            set => propInputWantsToRecord.SetValue(OptimizationVariables.MainPlayer.voice, value);
+            get => (bool)propInputWantsToRecord.GetValue(Player.player.voice);
+            set => propInputWantsToRecord.SetValue(Player.player.voice, value);
         }
 
         [Override(typeof(PlayerVoice), "updateInput", BindingFlags.NonPublic | BindingFlags.Instance)]
@@ -27,7 +27,7 @@ namespace Thanking.Overrides
             if (MiscOptions.PerpetualVoiceChat)
                 InputWantsToRecord = true;
             else
-                OverrideUtilities.CallOriginal(instance: OptimizationVariables.MainPlayer.voice);
+                OverrideUtilities.CallOriginal(instance: Player.player.voice);
         }
     }
 }

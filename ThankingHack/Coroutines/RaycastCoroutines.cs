@@ -28,12 +28,12 @@ namespace Thanking.Coroutines
                 
                 try
                 {
-                    ItemGunAsset currentGun = OptimizationVariables.MainPlayer.equipment.asset as ItemGunAsset;
+                    ItemGunAsset currentGun = Player.player.equipment.asset as ItemGunAsset;
                     float Range = currentGun?.range ?? 15.5f;
                     Range += 10f;
                     
                     GameObject[] gameObjects =
-                        Physics.OverlapSphere(OptimizationVariables.MainPlayer.transform.position, Range).Select(c => c.gameObject).ToArray();
+                        Physics.OverlapSphere(Player.player.transform.position, Range).Select(c => c.gameObject).ToArray();
 
                     RaycastUtilities.Objects.Clear();
 
@@ -48,7 +48,7 @@ namespace Thanking.Coroutines
                                 {
                                     Player p = DamageTool.getPlayer(g.transform);
                                     if (p == null || CachedPlayers.Contains(p) ||
-                                        p == OptimizationVariables.MainPlayer || p.life.isDead)
+                                        p == Player.player || p.life.isDead)
                                         continue;
 
                                     CachedPlayers.Add(p);

@@ -19,7 +19,7 @@ namespace Thanking.Overrides
             if (MiscOptions.PunchSilentAim)
                 OV_DamageTool.OVType = OverrideType.PlayerHit;
             
-            OverrideUtilities.CallOriginal(OptimizationVariables.MainPlayer.equipment, p);
+            OverrideUtilities.CallOriginal(Player.player.equipment, p);
             
             OV_DamageTool.OVType = OverrideType.None;
         }
