@@ -1,24 +1,18 @@
-﻿using System.Collections;
+﻿using SDG.Unturned;
+using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using SDG.Unturned;
-using Steamworks;
 using Thanking.Attributes;
-using Thanking.Components.UI;
 using Thanking.Coroutines;
-using Thanking.Misc.Enums;
 using Thanking.Options;
 using Thanking.Options.AimOptions;
-using Thanking.Overrides;
-using Thanking.Threads;
 using Thanking.Utilities;
 using Thanking.Variables;
 using UnityEngine;
 
 namespace Thanking.Components.Basic
 {
-    [Component]
+	[Component]
     public class MiscComponent : MonoBehaviour
     {
         public static Vector3 LastDeath;
@@ -105,15 +99,6 @@ namespace Thanking.Components.Basic
                     }
                 }
             });
-
-            HotkeyComponent.ActionDict.Add("_ToggleTimeAcceleration", () =>
-            {
-                OV_PlayerInput.Step =
-                    OV_PlayerInput.Step != 2 ? 2 : -1;
-            });
-
-            HotkeyComponent.ActionDict.Add("_ToggleTimeCharge",
-                () => OV_PlayerInput.Step = (OV_PlayerInput.Step != 1 ? 1 : -1));
 
             HotkeyComponent.ActionDict.Add("_InstantDisconnect", () => Provider.disconnect());
         }
@@ -243,11 +228,11 @@ namespace Thanking.Components.Basic
         private static void InstantZoom(float fov)
         {
             if (fov <= 1F)
-                MainCamera.instance.fieldOfView = OptionsSettings.view + (OptimizationVariables.MainPlayer.stance.stance != EPlayerStance.SPRINT ? 0F : 10F);
+                MainCamera.instance.fieldOfView = OptionsSettings._cachedVerticalFOV + (OptimizationVariables.MainPlayer.stance.stance != EPlayerStance.SPRINT ? 0F : 10F);
             else
                 MainCamera.instance.fieldOfView = fov;
 
-            OptimizationVariables.MainPlayer.look.highlightCamera.fieldOfView = MainCamera.instance.fieldOfView;
+            OptimizationVariables.MainPlayer.look.characterCamera.fieldOfView = MainCamera.instance.fieldOfView;
         }
 
         public void FixedUpdate()
@@ -307,7 +292,7 @@ namespace Thanking.Components.Basic
 
             if (MiscOptions.VehicleFly)
             {
-                float speedMul = MiscOptions.VehicleUseMaxSpeed ? vehicle.asset.speedMax * Time.fixedDeltaTime : MiscOptions.SpeedMultiplier / 3;
+                float speedMul = MiscOptions.VehicleUseMaxSpeed ? vehicle.asset.TargetForwardVelocity * Time.fixedDeltaTime : MiscOptions.SpeedMultiplier / 3;
 
                 rb.useGravity = false;
                 rb.isKinematic = true;
