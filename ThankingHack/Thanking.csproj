@@ -68,7 +68,6 @@
     <Compile Include="Components\Basic\MiscComponent.cs" />
     <Compile Include="Components\Basic\RadarComponent.cs" />
     <Compile Include="Components\Basic\SpectatorComponent.cs" />
-    <Compile Include="Components\Basic\TriggerbotComponent.cs" />
     <Compile Include="Components\Basic\RaycastComponent.cs" />
     <Compile Include="Components\Basic\VanishPlayerComponent.cs" />
     <Compile Include="Components\UI\ESPComponent.cs" />
@@ -90,7 +89,6 @@
     <Compile Include="Components\UI\Menu\Tabs\VisualsTab.cs" />
     <Compile Include="Components\UI\Menu\Tabs\WeaponsTab.cs" />
     <Compile Include="Components\UI\TimeAccelerationComponent.cs" />
-    <Compile Include="Components\UI\TrajectoryComponent.cs" />
     <Compile Include="Components\UI\WeaponComponent.cs" />
     <Compile Include="Coroutines\AimbotCoroutines.cs" />
     <Compile Include="Coroutines\ESPCoroutines.cs" />
