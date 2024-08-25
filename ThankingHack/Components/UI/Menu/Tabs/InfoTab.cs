@@ -15,7 +15,7 @@ namespace Thanking.Components.UI.Menu.Tabs
 					GUILayout.Label("Current Server Info: ", Prefab._TextStyle);
 					GUILayout.Space(2);
 
-					GUILayout.TextField($"{Parser.getIPFromUInt32(Provider.currentServerInfo.ip)}:{Provider.currentServerInfo.port}", Prefab._TextStyle);
+					GUILayout.TextField($"{Provider.CurrentServerConnectParameters.address}:{Provider.CurrentServerConnectParameters.queryPort}", Prefab._TextStyle);
 					GUILayout.Space(4);
 					
 					GUILayout.Label("Current Server SteamID: ", Prefab._TextStyle);
