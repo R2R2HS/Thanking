@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading;
 using Thanking.Managers.Main;
 using Thanking.Utilities;
 using UnityEngine;
@@ -7,15 +6,15 @@ using Object = UnityEngine.Object;
 
 namespace Thnkng
 {
-    public static class Ldr
+	public static class Ldr
     {
         public static GameObject HookObject;
         
         public static void Hook()
         {
-           // #if DEBUG
+#if DEBUG
 			DebugUtilities.Log("Initializing Thanking...");
-           // #endif        
+#endif        
     
 			HookObject = new GameObject();
 			Object.DontDestroyOnLoad(HookObject);
@@ -29,28 +28,9 @@ namespace Thnkng
             {
                 DebugUtilities.LogException(e);
             }
-            //#if DEBUG
+#if DEBUG
 			DebugUtilities.Log("Thanking initialized!");
-           // #endif
+#endif
 		}
-
-        public static void HookThread()
-        {
-            while (true)
-            {
-                System.Threading.Thread.Sleep(10000);
-
-                if (HookObject == null)
-                    Hook();
-
-                System.Threading.Thread.Sleep(5000);
-            }
-        }
-
-        public static void Thread()
-        {
-            Thread thread = new Thread(HookThread);
-            thread.Start();
-        }
     }
 }
